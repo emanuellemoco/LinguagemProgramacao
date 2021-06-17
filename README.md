@@ -1,34 +1,42 @@
 # LinguagemProgramacao
+Atividade prática supervisionada da matéria Lógica da Computação
+INSPER 2021/1
+
+## e-linguaggio
+
+A e-linguaggio é uma linguagem de programação baseada no idioma italiano. Ela tem como intuito facilitar o aprendizado de uma linguagem de programação para aqueles que falam italiano, porém, não compreendem inglês muito bem.
+A motivação dessa linguagem surgiu ao tentar explicar um código para um conhecido italiano, como o mesmo não entendia inglês, foi necessário explicar utilizando somente termos italianos. A e-linguaggio surge como um diferencial para ele e tantos outros que podem usá-la.
+
+Sua principal característica está em receber entradas escritas em italiano, por exemplo, ao querer escrever algo na tela, o usuário deve utilizar o termo "stampare", análogo ao "print line".
+
+Esta linguagem foi desenvolvida em phyton e tem como base o compilador que foi criado nessa mesma disciplina, suas informações quanto ao funcionamento podem ser compreendidas na EBNF e no diagrama sintático. 
 
 
-### A e-linguaggio é uma linguagem de programação baseada no idioma italiano. 
+## EBNF
 
-
-#### EBNF
-
-BLOCCARE = "{", COMANDO, "}" ;  
-COMANDO = ( ( INCARICO | STAMPA | DICHIARAZIONE) , ";" ) | ( λ | BLOCCARE | MENTRE |  | SE | IF ) ;   
-DICHIARAZIONE = ( "int" |  "bool" | "stringa" ),  IDENTIFIER ";"   
-INCARICO = IDENTIFIER, "=", ESPRESSIONE ;                                            
-STAMPA = "stampare", "(", (ESPRESSIONE | NUMERO | STRINGA), ")" ;         
-LEGGERE = "leggere", "(", ")" ;                        
-MENTRE = "mentre", "(", ESPRESSIONE, ")", COMANDO, BLOCCARE ;  
-SE = "se", "(", ESPRESSIONE, ")", (COMANDO | COMANDO, "altro", COMANDO) ;  
-GIRI = "gire", "(", INCARICO, ";", ESPRESSIONERELATIVA ";", (ESPRESSIONE | TERMINE)  ")" ;  
-OESPRESSIONE = EESPRESSIONE, { "||" } ;  
-EESPRESSIONE = ESPRESSIONEUGUALE, { "&&" } ;  
-ESPRESSIONEUGUALE = ESPRESSIONERELATIVA, { "==" } ;  
-ESPRESSIONERELATIVA = ESPRESSIONE, { (">" | "<"), ESPRESSIONE } ;  
-ESPRESSIONE = TERMINE, { ("+" | "-"), TERMINE } ;  
-TERMINE = FATTORE, { ("*" | "/"), FATTORE } ;  
-FATTORE = (("+" | "-" | "!"), FATTORE) | NUMERO | IDENTIFICATORE | "(", ESPRESSIONE, ")" | "leggereln",  "(", ")" ;  
-LEGGARELN = "leggereln", "(", ")" ;  
-IDENTIFICATORE = LETTERA, { LETTERA | DIGIT | "_" } ;  
-NUMERO = DIGIT, { DIGIT } ;  
-STRINGA = """, "LETTERA", { LETTERA | DIGIT | "_" }, """;   
-BOOLEANA = "vero" | "falso" ;  
-LETTERA = ( a | ... | z | A | ... | Z ) ;  
-DIGIT = ( 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 0 ) ;  
+FUNCDEFBLOKC = {  λ | TYPE, IDENTIFIER, "(", { TYPE, IDENTIFIER, "," }, ")", COMMAND } ;
+BLOCK = "{", COMMAND, "}" ;   
+COMMAND = ( (ASSIGNMENT | PRINT | DECLARATION, RETURN, ( IDENTIFIER, "(" {OREXPR}, ",", ")" ), ";" )  | ( λ, ";" | BLOCK | WHILE | IF ) ;  
+ASSIGNMENT = IDENTIFIER, "=", EXPRESSION ;   
+RETURN = "ritorno" , OREXPR;
+DECLARATION = ( "int" |  "bool" | "string" ),  IDENTIFIER ";" ;                                       
+PRINT = "stampare", "(", (EXPRESSION | NUMBER ), ")" ;                                
+WHILE = "while", "(", EXPRESSION, ")", COMMAND, BLOCK ;  
+IF = "se", "(", EXPRESSION, ")", (COMMAND | COMMAND, "altro", COMMAND) ;  
+OREXPR = ANDEXPR, { "||" } ;  
+ANDEXPR = EQEXPR, { "&&" } ;  
+EQEXPR = RELEXPR, { "==" } ;  
+RELEXPR = EXPRESSION, { (">" | "<"), EXPRESSION } ;  
+EXPRESSION = TERM, { ("+" | "-"), TERM } ;  
+TERM = FACTOR, { ("*" | "/"), FACTOR } ;  
+FACTOR = (("+" | "-" | "!"), FACTOR) | NUMBER | IDENTIFIER IDENTIFIER, "(" {OREXPR}, ",", ")" ), ";"| "(", EXPRESSION, ")" | "leggere",  "(", ")" | STRING | BOOL ;  
+READLN = "leggere", "(", ")" ;  
+IDENTIFIER = LETTER, { LETTER | DIGIT | "_" } ;    
+NUMBER = DIGIT, { DIGIT } ;  
+STRING = """, "LETTER", { LETTER | DIGIT | "_" }, """;   
+BOOL = "vero" | "falso" ;   
+LETTER = ( a | ... | z | A | ... | Z ) ;    
+DIGIT = ( 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 0 ) ;    
 
 
 
@@ -48,23 +56,33 @@ $ python3 main.py test1.c
 ###### Ex arquivo test1.c:
 ```
 {
-    bool a;
-    int b;
-    int c;
-    stringa x;
-    
-    b = 32;
-    c = 32;
-    a = falso;
-    x = "oie";
-
-    se ((b && c) == a) {
-    	stampare(1);
-    }altro{
-    	stampare(2);
+    int soma()
+    {
+        stampare(999);
     }
 
-    stampare(x);
+    int main()
+    {
+        soma();
+        bool x;
+        x = falso;
+        string y;
+        y = "aaa";
+        se (x)
+        {
+            soma();
+        }
+        altro{
+            stampare(y);
+        }
+    }
 }
 ```
+## Base de testes
+Dentro da pasta 'testes' existem arquivos com exemplos de testes que podem ser utilizados nessa linguagem. 
 
+
+## Diagrama Sintático
+O diagrama sintático dessa linguagem está abaixo:
+[![Diagrama](01.png)]() 
+[![Diagrama](02.png)]()  

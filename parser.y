@@ -1,4 +1,3 @@
-/* simplest version of calculator */
 %{
 #include <stdio.h>
 %}
@@ -45,5 +44,3 @@ exp: factor
  | exp SUB factor { $$ = $1 - $3; }
  ;
 
-
- https://www.oreilly.com/library/view/flex-bison/9780596805418/ch01.html
